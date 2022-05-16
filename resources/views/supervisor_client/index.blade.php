@@ -39,7 +39,7 @@
 
                                         </td>
                                         <td>
-                                            <a href="{{url('supervisor/client')}}/{{$client->id_user}}/edit" class="btn btn-warning btn-xs">Editar</a>
+                                            <a href="{{url('supervisor/client')}}/{{$client->id_user}}/edit" class="btn btn-info btn-xs">Ver</a>
                                         </td>
                                     </tr>
                                 @endforeach

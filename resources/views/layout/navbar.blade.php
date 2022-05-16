@@ -11,21 +11,6 @@
 
 @endphp
 
-<nav id="app-navbar" class="navbar navbar-expand-lg navbar-dark bg-dark in">
-      <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
-        <ul class="navbar-nav">
-            <a href="{{url('/')}}" class="navbar-brand text-white">
-                {{Auth::user()->name}}
-            </a> 
-            <a href="{{url('logout')}}" class="navbar-toggle navbar-toggle-right collapsed p-3">
-                <i class="fa fa-2x fa-sign-out"></i>
-            </a>                                   
-        </ul>
-    </div>
-</nav>
-
-
-
 <nav id="app-navbar" class="  navbar-inverse navbar-fixed-top primary in">
 
     <!-- navbar header -->
@@ -63,16 +48,24 @@
 
         </div><!-- navbar-container -->
 </nav>
-@if(isset($valid) && $valid)
-    <div class="section-session">
+
+<div class="section-session">
+    
+    <div class=" text-right">
+        <a href="javascript:history.back()" class="btn btn-inverse btn-xs"><i class="fa fa-arrow-left"></i> Regresar</a>
+    </div>
+
+    @if(isset($valid) && $valid)
         <div>
             Estás haciendo uso de la cuenta administradora, recuerda que la sesión es válida por 15 min
         </div>
+
         <form action="{{url('admin/session')}}" method="POST"
-              class="pull-left px-1">
+            class="pull-left px-1">
             {{ csrf_field() }}
             <button type="submit" class="btn btn-inverse btn-xs">Volver
             </button>
         </form>
-    </div>
-@endif
+
+    @endif
+</div>

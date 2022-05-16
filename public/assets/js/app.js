@@ -95,7 +95,7 @@ function initialize() {
         if (place) {
             console.log(mapElement)
             mapElement.setAttribute('style', 'display:block !important');
-            initMap({lat: place.geometry['location'].lat(), lng: place.geometry['location'].lng()})
+            initMap({ lat: place.geometry['location'].lat(), lng: place.geometry['location'].lng() })
         }
         // $('#latitude').val(place.geometry['location'].lat());
         // $('#longitude').val(place.geometry['location'].lng());
@@ -106,16 +106,16 @@ function initialize() {
     });
 }
 
-function toggleBounce(event){
-	// initMap({lat:event.latLng.lat(), lng:event.latLng.lng()})
-	$('body .new-register #lat').val(event.latLng.lat());
-	$('body .new-register #lng').val(event.latLng.lng());
+function toggleBounce(event) {
+    // initMap({lat:event.latLng.lat(), lng:event.latLng.lng()})
+    $('body .new-register #lat').val(event.latLng.lat());
+    $('body .new-register #lng').val(event.latLng.lng());
 
 }
 
-function initMap({lat, lng}) {
+function initMap({ lat, lng }) {
     // The location of Uluru
-    const uluru = {lat, lng};
+    const uluru = { lat, lng };
     // The map, centered at Uluru
     const map = new google.maps.Map(document.querySelector(".map-google"), {
         zoom: 9,
@@ -128,10 +128,10 @@ function initMap({lat, lng}) {
         draggable: true
     });
 
-	$('body .new-register #lat').val(lat);
-	$('body .new-register #lng').val(lng);
+    $('body .new-register #lat').val(lat);
+    $('body .new-register #lng').val(lng);
 
-	marker.addListener("dragend", toggleBounce);
+    marker.addListener("dragend", toggleBounce);
 }
 
 
@@ -308,9 +308,9 @@ function initMap({lat, lng}) {
             var $this = $(this), total = $this.offset().left + $this.width();
             var ww = $(window).width();
             if ((ww - total) < 220) {
-                $this.find('> .submenu').css({left: 'auto', right: '100%'});
+                $this.find('> .submenu').css({ left: 'auto', right: '100%' });
             } else if ((ww - total) >= 220 && !$this.is('.app-menu > li')) {
-                $this.find('> .submenu').css({left: '100%', right: 'auto'});
+                $this.find('> .submenu').css({ left: '100%', right: 'auto' });
             }
             $(this).toggleClass('open').siblings().removeClass('open');
         },
@@ -665,9 +665,40 @@ function initMap({lat, lng}) {
         "dateFormat": "dd/mm/yy"
     });
     $('body .datepicker-trigger').prop("readonly", true);
+
+    $('body .form-groupp .triggerSelect').css({
+        'pointer-events': 'none',
+        'touch-action': 'none'
+    });
+
+    //Code  supervisor-client
     $('body').on('change', '.supervisor-client #wallet', function () {
-        $('#link_client_audit').attr('disabled', false);
-        $('#link_client_audit').attr('href', $('#link_client_audit').attr('href') + '/' + $(this).val());
+        $('#link_client_audit').css({
+            'cursor': 'pointer',
+            'pointer-events': 'auto'
+        });
+        $('#link_client_audit').removeClass('btn-light');
+        $('#link_client_audit').addClass('btn-success');
+        let href = $('#link_client_audit').attr('href');
+        //alert (href.substr(0, href.lastIndexOf('t')+1));    
+        //$('#link_client_audit').attr('disabled', false);
+        $('#link_client_audit').attr('href', href.substr(0, href.lastIndexOf('t') + 1) + "/" + $(this).val());
+    });
+
+
+    //Code  review-client
+    $('body').on('change', '.supervisor-review #wallet', function () {
+        $('#link_client_review').css({
+            'cursor': 'pointer',
+            'pointer-events': 'auto'
+        });
+        $('#link_client_review').removeClass('btn-light');
+        $('#link_client_review').addClass('btn-success');
+        let href = $('#link_client_review').attr('href');
+        //alert(href);
+        //alert (href.substr(0, href.lastIndexOf('w')+1));    
+        //$('#link_client_review').attr('disabled', false);
+        $('#link_client_review').attr('href', href.substr(0, href.lastIndexOf('w') + 1) + "/" + $(this).val());
     });
 
     $('body').on('submit', '.payment-create', function () {

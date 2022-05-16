@@ -10,7 +10,7 @@
                         <div class="widget">
                             <hr class="widget-separator">
                             <div class="widget-body">
-                                <form method="POST" action="{{url('supervisor/client')}}" class="supervisor-client" enctype="multipart/form-data">
+                                <form method="POST" action="{{url('supervisor/client')}}" class="supervisor-review" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     <div class="form-group">
                                         <label for="country"> Pais:</label>
@@ -30,16 +30,15 @@
                                         </select>
                                     </div>
                                     <div class="form-group hidden">
-                                        <label for="agent"> Agente:</label>
+                                        <label for="agent"> Agentes:</label>
                                         <select name="agent" class="form-control" id="agent">
                                             @foreach($agents as $a)
                                                 <option value="{{$a->id}}">{{$a->name}} {{$a->last_name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="hidden btn btn-success btn-block btn-md">Guardar</button>
-                                        <a id="link_client_audit" class="btn btn-success btn-block" disabled href="{{url('supervisor/review')}}">Auditar</a>
+                                    <div class="form-group">                                                                                
+                                        <a style="cursor : default; pointer-events:none" id="link_client_review" class="btn btn-light btn-block" href="{{url('supervisor/review')}}">Auditar</a>
                                     </div>
                                 </form>
 

@@ -37,9 +37,8 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="hidden btn btn-success btn-block btn-md">Guardar</button>
-                                        <a id="link_client_audit" class="btn btn-success btn-block" disabled href="{{url('supervisor/client')}}">Auditar</a>
+                                    <div class="form-group">                                        
+                                        <a style="cursor : default; pointer-events:none" id="link_client_audit" class="btn btn-light btn-block" href="{{url('supervisor/client/')}}">Auditar</a>
                                     </div>
                                 </form>
 
