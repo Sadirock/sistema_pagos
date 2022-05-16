@@ -16,7 +16,8 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->level != 'admin') {
+        $level = Auth::user()->level;
+        if ($level != 'admin' && $level != 'subadmin') {
             die('No tienes permisos');
         }
         return $next($request);

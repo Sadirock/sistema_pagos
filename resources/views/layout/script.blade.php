@@ -19,7 +19,10 @@
 <script src="{{asset('/assets/js/dropzone.js')}}"></script>
 <script src="{{asset('/assets/js/datatable.js')}}"></script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key={{ env("GOOGLE_KEY") }}&libraries=places"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key={{ env(" GOOGLE_KEY") }}&libraries=places"></script>
 
 
 <script type="text/javascript">
@@ -45,7 +48,8 @@
                     "previous": "Anterior"
                 },
                 "order": [[1, "asc"]]
-            }
+            },
+            responsive: true
         }
     );
 
@@ -54,8 +58,4 @@
      */
 
     google.maps.event.addDomListener(window, 'load', initialize);
-
-
-
-
 </script>

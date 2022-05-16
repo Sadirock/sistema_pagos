@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,7 +60,6 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         'store'
     ]);
 });
-
 
 Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::resource('user', 'adminUserController');

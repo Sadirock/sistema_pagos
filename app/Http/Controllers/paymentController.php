@@ -40,9 +40,10 @@ class paymentController extends Controller
             )
             ->get();
 
-        foreach ($data_user as $data) {
+        foreach ($data_user as $data) {           
             if (db_credit::where('id_user', $data->id_user)->where('id_agent', Auth::id())->exists()) {
-
+                $data->utility_amount = floatval($data->utility * $data->amount_neto);
+                $data->setAttribute('payment_amount', (floatval($data->amount_neto + $data->utility_amount) / floatval($data->payment_number)));                
                 $data->setAttribute('credit_id', $data->id);
                 $data->setAttribute('amount_neto', ($data->amount_neto) + ($data->amount_neto * $data->utility));
                 $data->setAttribute('positive', $data->amount_neto - (db_summary::where('id_credit', $data->id)
@@ -54,7 +55,7 @@ class paymentController extends Controller
         }
         $data = array(
             'clients' => $data_user
-        );
+        );        
 
         return view('payment.index', $data);
     }
@@ -119,6 +120,7 @@ class paymentController extends Controller
         }
 
         $data = db_credit::find($id);
+        $data->setAttribute('payment_amount',(floatval($data->amount_neto + ($data->utility * $data->amount_neto)) / floatval($data->payment_number)) );
         $data->user = User::find($data->id_user);
         $tmp_amount = db_summary::where('id_credit', $id)
             ->where('id_agent', Auth::id())
@@ -138,6 +140,7 @@ class paymentController extends Controller
             'rest' => round(floatval($amount_neto - $tmp_amount), 2),
             'payment_done' => db_summary::where('id_credit', $id)->count(),
             'payment_quote' => ($tmp_rest > $tmp_quote) ? $tmp_rest : $tmp_quote
+            
     );
 
 
@@ -149,6 +152,7 @@ class paymentController extends Controller
             );
             return response()->json($response);
         } else {
+            //dd($data);
             return view('payment.create', $data);
         }
 

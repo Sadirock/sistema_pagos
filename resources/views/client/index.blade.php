@@ -9,7 +9,7 @@
                     <div class="col-md-12">
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Detalles Clientes y Ventas</h4>
-                            <table class="table client-table">
+                            <table class="table table-striped table-bordered dt-responsive nowrap client-table">
                                 <thead class="visible-lg">
                                 <tr>
                                     <th>Nombre</th>

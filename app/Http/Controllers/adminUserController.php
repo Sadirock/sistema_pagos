@@ -24,8 +24,8 @@ class adminUserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $data = User::where('users.level', '<>', 'user')
+    {        
+        $data = User::where([['users.level', '<>', 'user'],['users.level', '<>','admin']])
             ->leftJoin('agent_has_supervisor', 'users.id', '=', 'id_user_agent')
             ->leftJoin('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
             ->select(
@@ -35,7 +35,7 @@ class adminUserController extends Controller
             )
             ->get();
 
-
+            
         foreach ($data as $datum) {
             if (User::where('id', $datum->id_supervisor)->exists()) {
                 $datum->supervisor = User::where('id', $datum->id_supervisor)->first()->name;
@@ -58,7 +58,7 @@ class adminUserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {        
         $data = db_countries::all();
         $data = array(
             'countries' => $data
@@ -89,7 +89,7 @@ class adminUserController extends Controller
             return 'Contraseña vacio';
         };
         if (!isset($level)) {
-            return 'Nivel vacio';
+            return 'Nivel vacío';
         };
 
         if (User::where('email', $username)->exists()) {

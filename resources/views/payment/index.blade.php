@@ -81,6 +81,7 @@
                                     <th>Saldo</th>
                                     <th>Cuota</th>
                                     <th></th>
+                                    <th></th>
                                 </tr>
                                 </thead>
 
@@ -92,13 +93,15 @@
                                         <td>{{$client->credit_id}}</td>
                                         <td>{{$client->amount_neto}}</td>
                                         <td id="saldo">{{$client->positive}}</td>
-                                        <td>{{$client->payment_current}} / {{$client->payment_number}}</td>
+                                            @if($client->payment_current < 1)
+                                                <td>{{$client->payment_current}} / {{$client->payment_number}}</td>
+                                            @else 
+                                                <td>{{floor(($client->amount_neto  - $client->positive) / $client->payment_amount)}}  / {{$client->payment_number}} </td>
+                                            @endif
                                         <td>
+
                                             <!-- Trigger the modal with a button -->
-
-
-
-                                            <a href="{{url('payment')}}/{{$client->credit_id}}?rev=true" class="btn btn-success btn-xs"><i class="fa fa-money"></i> Pagar</a>
+                                            {{-- <a href="{{url('payment')}}/{{$client->credit_id}}?rev=true" class="btn btn-success btn-xs"><i class="fa fa-money"></i> Pagar</a> --}}
                                             <a href="{{url('summary')}}?id_credit={{$client->credit_id}}" class="btn btn-info btn-xs"><i class="fa fa-history"></i> Ver</a>
                                         </td>
                                     </tr>

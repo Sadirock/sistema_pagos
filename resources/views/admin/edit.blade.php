@@ -34,6 +34,7 @@
                                             <select name="level"  class="form-control" id="level">
                                                 <option {{($user->level=='agent') ? 'selected':''}} value="agent">Agente</option>
                                                 <option {{($user->level=='supervisor') ? 'selected':''}} value="supervisor">Supervisor</option>
+                                                <option {{($user->level=='subadmin') ? 'selected':''}} value="subadmin">subadmin</option>
                                             </select>
                                         </div>
                                     @endif

@@ -32,6 +32,7 @@
                                         <select name="level"  class="form-control" id="level">
                                             <option value="agent">Agente</option>
                                             <option value="supervisor">Supervisor</option>
+                                            <option value="subadmin">Sub Admin</option>
                                         </select>
                                     </div>
 

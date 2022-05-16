@@ -70,7 +70,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="widget p-lg">
-                            <h4 class="m-b-lg">Clientes y Creditos</h4>
+                            <h4 class="m-b-lg">Clientes y Creditos 2</h4>
                             @if(app('request')->input('hide'))
                                 <div class="alert alert-warning alert-custom alert-dismissible">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -79,19 +79,18 @@
                                 </div>
                             @endif
 
-                            <table class="table agente-route-table">
+                            <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+
                                 <thead>
-                                <tr>
-                                    <th class="hidden">Orden</th>
-                                    <th>Credito</th>
+                                <tr>                                   
                                     <th>Nombres</th>
-                                    <th>Días en mora</th>
-                                    <th>Cuota diaria</th>
-                                    <th>Valor</th>
-                                    <th>Saldo</th>
-                                    <th>Ultimo pago</th>
                                     <th>Barrio</th>
-                                    <th>Status</th>
+                                    <th>Valor</th>
+                                    <th>Interés</th>
+                                    <th>Saldo</th>
+                                    <th>Cuota diaria</th>
+                                    <th>Días en mora</th>
+                                    <th class="hidden">Orden</th>                                    
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -100,34 +99,34 @@
                                 @foreach($clients as $client)
 
                                     <tr id="td_{{$client->id}}">
-                                        <td class="hidden">{{$client->order_list}}</td>
-                                        <td>{{$client->id}}</td>
                                         <td>{{$client->user->name}} {{$client->user->last_name}}</td>
-                                        <td>{{$client->days_rest}}</td>
-                                        <td>{{$client->quote}}</td>
-                                        <td>{{$client->amount_total}}</td>
-                                        <td id="saldo">{{$client->saldo}}</td>
-                                        @if($client->last_pay)
-                                            <td>{{$client->last_pay->created_at}}</td>
-                                        @else
-                                            <td>No hay pagos</td>
-                                        @endif
                                         <td>{{$client->user->province}}</td>
-                                        <td>
+                                        <td>{{$client->amount_neto}}</td>
+                                        <td>{{$client->amount_neto * $client->utility}}</td>
+                                        <td id="saldo">{{$client->saldo}}</td>
+                                        <td>{{$client->quote}}</td>
+                                        <td>{{$client->days_rest}}</td>
+                                        <td class="hidden">{{$client->order_list}}</td>                                        
+                                       
+                                        {{--
+                                            @if($client->last_pay)
+                                                <td>{{$client->last_pay->created_at}}</td>
+                                            @else
+                                                <td>No hay pagos</td>
+                                            @endif
+                                         <td>
                                             @if($client->user->status=='good')
                                                 <span class="badge-info badge">BUENO</span>
                                             @elseif($client->user->status=='bad')
                                                 <span class="badge-danger badge">MALO</span>
                                             @endif
-
-                                        </td>
+                                        </td> --}}
+                                        
                                         <td>
-                                            <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=up" class="btn btn-default btn-xs arw-up btn-center-arrow"><i class="fa fa-arrow-up"></i></a>
-                                            <a href="{{url('payment')}}/{{$client->id}}" class="btn btn-success btn-xs hidden"><i class="fa fa-money"></i> Pagar</a>
-                                            <button type="button" class="btn btn-success btn-xs btn-pagar" data-toggle="modal" data-id="{{$client->id}}" data-target="#modal_pay">Pagar</button>
-                                            <a href="javascript:void(0)" id_user="{{$client->id_user}}" id_credit="{{$client->id}}" class="btn btn-warning btn-xs ajax-btn btn-pagar"><i class="fa fa-archive "></i> Saltar</a>
+                                            {{-- <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=up" class="btn btn-default btn-xs arw-up btn-center-arrow"><i class="fa fa-arrow-up"></i></a> --}}
+                                            <a href="{{url('payment')}}/{{$client->id}}" class="btn btn-success btn-xs hidden"><i class="fa fa-money"></i> Pagar</a>                                            
                                             <a href="{{url('summary')}}?id_credit={{$client->id}}" class="btn btn-info btn-xs hidden"><i class="fa fa-history"></i> Ver</a>
-                                            <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=down" class="btn btn-default btn-xs arw-down btn-center-arrow"><i class="fa fa-arrow-down"></i></a>
+                                            {{-- <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=down" class="btn btn-default btn-xs arw-down btn-center-arrow"><i class="fa fa-arrow-down"></i></a> --}}
                                         </td>
                                     </tr>
                                 @endforeach
