@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
 {
@@ -14,6 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
+        Commands\testTask::class
     ];
 
     /**
@@ -26,8 +28,12 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        //$schedule->command('test:tareaPrueba')->everyMinute();
+        
+        $schedule->command('test:tareaPrueba')->daily();
+        
     }
-
+            
     /**
      * Register the Closure based commands for the application.
      *

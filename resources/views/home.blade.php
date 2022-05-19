@@ -190,7 +190,7 @@
         <div class="widget stats-widget">
             <div class="widget-body clearfix bg-primary">
                 <div class="pull-left">
-                    <h3 class="widget-title text-white">Cierre diario</h3>
+                    <h3 class="widget-title text-white">Cierre/Apertura diaria</h3>
                 </div>
                 <span class="pull-right big-icon watermark"><i class="fa fa-lock"></i></span>
             </div>
@@ -342,7 +342,7 @@
 <main id="app-main" class="app-main in">
     <div class="close-wrapper"></div>
     <div class="wrap">
-        @if(!$close_day)
+        @if(!$close_day && !$open_day)
         <section class="app-content">
             @if(in_array(Auth::user()->level,['agent']))
             <div class="row">
@@ -375,11 +375,19 @@
             @endif
         </section>
         @else
-        <section class="app-content">
-            <div class="col-12 text-center p-4">
-                <b>Cierre del día realizado. Vuelve mañana</b>
-            </div>
-        </section>
+            @if($open_day)
+                <section class="app-content">
+                    <div class="col-12 text-center p-4">
+                        <h3>Aún no se ha habilitado el día, comuníquese con su Supervisor para que le habilite el sistema</h3>
+                    </div>
+                </section>
+            @elseif($close_day)
+                <section class="app-content">
+                    <div class="col-12 text-center p-4">
+                        <b>Cierre del día realizado. Vuelve mañana</b>
+                    </div>
+                </section>        
+            @endif
         @endif
 
     </div>

@@ -14,8 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('open_days', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->integer('id_agent')->default(null);
+            $table->integer('id_supervisor')->default(null);
+            $table->timestamp('created_at')->default(null);
+            $table->string('opened_closed')->default('closed');
         });
     }
 

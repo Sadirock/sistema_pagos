@@ -63,10 +63,10 @@ class historyBaseController extends Controller
         // ->where('id_supervisor', Auth::id())->get();
 
         $data = HistoryBase::whereDate('history_bases.created_at', Carbon::createFromFormat('d/m/Y', $date_start)
-        ->toDateString())
-        ->join('users', 'users.id', '=', 'id_user_agent')
-        ->select('history_bases.*', 'users.name')
-        ->where('id_supervisor', Auth::id())
+            ->toDateString())
+            ->join('users', 'users.id', '=', 'id_user_agent')
+            ->select('history_bases.*', 'users.name')
+            ->where('id_supervisor', Auth::id())
         ->get();
 
         if ($data->isEmpty()){

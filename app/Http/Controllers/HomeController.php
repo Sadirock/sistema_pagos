@@ -7,6 +7,7 @@ use App\db_close_day;
 use App\db_credit;
 use App\db_summary;
 use App\db_supervisor_has_agent;
+use App\openDay;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,6 +54,11 @@ class HomeController extends Controller
         $close_day = db_close_day::whereDate('created_at', Carbon::now()->toDateString())
             ->where('id_agent', Auth::id())
             ->first();
+        
+        $open_day = openDay::whereDate('created_at', Carbon::now()->toDateString())
+            ->where('id_agent', Auth::id())
+            ->where('opened_closed', 'closed')
+        ->first();
 
         $base = db_supervisor_has_agent::where('id_user_agent', Auth::id())->first()->base ?? 0;
         $base_credit = db_credit::whereDate('created_at', Carbon::now()->toDateString())
@@ -78,6 +84,7 @@ class HomeController extends Controller
             'base_agent' => $base,
             'total_bill' => $bill->sum('amount'),
             'total_summary' => $total_summary,
+            'open_day' => $open_day,
             'close_day' => $close_day
         ];
 

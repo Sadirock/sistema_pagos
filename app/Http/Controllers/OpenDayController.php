@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\openDay;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OpenDayController extends Controller
 {
@@ -44,9 +46,15 @@ class OpenDayController extends Controller
      * @param  \App\openDay  $openDay
      * @return \Illuminate\Http\Response
      */
-    public function show(openDay $openDay)
+    public function show(openDay $openDay, $id)
     {
-        //
+        //No show, update in this case
+        openDay::where('id_agent', $id)
+            ->where('id_supervisor', Auth::id())
+            ->whereDate('created_at', "=", Carbon::now()->toDateString())
+            ->update(['opened_closed'=>'opened']);
+
+        return redirect('supervisor/close');
     }
 
     /**

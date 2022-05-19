@@ -8,6 +8,7 @@ use App\db_credit;
 use App\db_summary;
 use App\db_supervisor_has_agent;
 use App\db_wallet;
+use App\openDay;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -24,9 +25,19 @@ class closeController extends Controller
     {
         $data = db_supervisor_has_agent::where('agent_has_supervisor.id_supervisor',Auth::id())
             ->join('users','agent_has_supervisor.id_user_agent','=','users.id')
-            ->get();
-
-        foreach ($data as $datum){
+            ->join('open_days','id_user_agent','=','id_agent')
+            ->where('opened_closed', '!=', 'closed')
+            ->whereDate('open_days.created_at', '=', Carbon::now()->toDateString())
+        ->get();
+        
+        $dataO = openDay::where('open_days.id_supervisor',Auth::id())
+            ->join('users','open_days.id_agent','=','users.id')
+            ->select('open_days.*','users.*','open_days.created_at')
+            ->where('opened_closed','closed')
+            ->whereDate('open_days.created_at', '=', Carbon::now()->toDateString())
+        ->get();
+         
+        foreach ($data as $datum){            
             $datum->show = true;
             $datum->wallet_name = db_wallet::where('id',$datum->id_wallet)->first()->name;
             $summary=db_summary::whereDate('created_at','=',Carbon::now()->toDateString())
@@ -48,18 +59,27 @@ class closeController extends Controller
             $close_day=db_close_day::where('id_agent',$datum->id_user_agent)
                 ->whereDate('created_at','=',Carbon::now()->toDateString())
                 ->exists();
-            if($close_day){
+            
+            $open_day= openDay::where('id_agent',$datum->id_user_agent)
+                ->where('opened_closed','closed')
+                ->whereDate('created_at','=',Carbon::now()->toDateString())
+                ->exists();
+                
+                // dd(" id " . $datum->id_user_agent . "  -   " . $close_day . " - " . $open_day);
+                
+            if($close_day || $open_day){            
                 $datum->show = false;
-            }
-
+            }            
         }
-
-
+        
+        
         $data = array(
             'clients' => $data,
+            'clientsO' => $dataO,
             'today' => Carbon::now()->toDateString(),
-
+            
         );
+        
 
         return view('supervisor_agent.indexclose',$data);
 
@@ -94,7 +114,6 @@ class closeController extends Controller
      */
     public function show($id)
     {
-
             $base_amount = db_supervisor_has_agent::where('id_user_agent',$id)->first()->base;
             $today_amount = db_summary::whereDate('created_at', '=', Carbon::now()->toDateString())
                 ->where('id_agent',$id)
