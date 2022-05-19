@@ -9,12 +9,11 @@
                     <div class="col-md-12 col-lg-8 offset-lg-2">
                         <div class="widget">
                             <header class="widget-header">
-                                <h4 class="widget-title">Cierre</h4>
+                                <h4 class="widget-title">Historial de bases ingresadas</h4>
                             </header><!-- .widget-header -->
                             <hr class="widget-separator">
                             <div class="widget-body">
-                                <form method="GET" action="{{url('supervisor/menu/close')}}/{{ app('request')->input('id_wallet') }}" enctype="multipart/form-data">
-                                    {{-- <form method="GET" action="{{url('supervisor/menu/close')}}/{{ request('id_wallet') }}" enctype="multipart/form-data"> --}}
+                                <form method="GET" action="{{url('supervisor/historyBase')}}/{{'agents'}}" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="nit_number"> Selecciona fecha:</label>
                                         <input type="text" name="date_start"  class="form-control datepicker-trigger" id="date_start" data-role="date" required>

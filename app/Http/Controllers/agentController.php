@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\db_supervisor_has_agent;
+use App\HistoryBase;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -99,15 +100,29 @@ class agentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $base = $request->base_number;
+
         if(!isset($base)){return 'Base Vacia';};
         $base_current = db_supervisor_has_agent::where('id_user_agent',$id)
-            ->where('id_supervisor',Auth::id())->first()->base;
-        $base = $base_current+$base;
+            ->where('id_supervisor',Auth::id())->first();
+        $base = $base_current->base + $base;
+
         db_supervisor_has_agent::where('id_user_agent',$id)
             ->where('id_supervisor',Auth::id())
             ->update(['base'=>$base]);
 
+        //insert
+        $values = array(
+            'id_user_agent' => $id,
+            'id_supervisor' => Auth::id(),
+            'created_at' => Carbon::now(),
+            'id_wallet' => $base_current->id_wallet,
+            'history' => 'log',
+            'base' => $request->base_number
+        );
+
+        HistoryBase::insert($values);        
         return redirect('supervisor/agent');
     }
 

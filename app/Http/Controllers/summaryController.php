@@ -52,7 +52,7 @@ class summaryController extends Controller
         $data_credit->utility_amount = floatval($data_credit->utility * $data_credit->amount_neto);
         $data_credit->utility = floatval($data_credit->utility * 100);
         $data_credit->payment_amount = (floatval($data_credit->amount_neto + $data_credit->utility_amount) / floatval($data_credit->payment_number));
-               // dd(floatval($data_credit->amount_neto + $data_credit->utility_amount));
+        // dd(floatval($data_credit->amount_neto + $data_credit->utility_amount));
         $data_credit->total = floatval($data_credit->utility_amount + $data_credit->amount_neto);
         $amount_last = 0;
         if (db_summary::where($sql)->exists()) {

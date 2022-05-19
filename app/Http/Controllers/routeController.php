@@ -30,7 +30,7 @@ class routeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {        
         $data = db_credit::where('credit.id_agent', Auth::id())
             ->where('credit.status', 'inprogress')
             ->orderBy('credit.order_list', 'asc')
@@ -39,8 +39,6 @@ class routeController extends Controller
         $dt = Carbon::now();
 
         foreach ($data as $k => $d) {
-
-
             $d->user = User::find($d->id_user);
             $d->amount_total = ($d->amount_neto) + ($d->amount_neto * $d->utility);
             $d->days_rest = $dt->diffInDays(Carbon::parse($d->created_at));
@@ -52,10 +50,7 @@ class routeController extends Controller
                 if (!db_not_pay::whereDate('created_at', '=', Carbon::now()->toDateString())->where('id_credit', $d->id)->exists()) {
                     $data_filter[] = $d;
                 }
-
             }
-
-
         }
 
         $data_all = array(

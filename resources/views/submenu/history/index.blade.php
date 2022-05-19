@@ -15,17 +15,21 @@
                                     <th>Nombres</th>
                                     <th>Credito</th>
                                     <th>Valor</th>
+                                    <th>Interés</th>
                                     <th>Saldo</th>
                                     <th>Cuota</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
+                                
                                 @foreach($clients as $client)
+
                                 <tr>
                                     <td><span class="value">{{$client->name}} {{$client->last_name}}</span></td>
                                     <td><span class="value">{{$client->credit_id}}</span></td>
-                                    <td><span class="value">{{$client->amount_neto}}</span></td>
+                                    <td><span class="value">{{($client->amount_neto / (1 + $client->utility))}}</span></td>
+                                    <td><span class="value">{{($client->amount_neto / (1 + $client->utility)) * $client->utility }}</span></td>
                                     <td><span class="value">{{($client->summary_total)}}</span></td>
                                     <td><span class="value">{{$client->number_index}}/{{$client->payment_number}}</span>
                                     </td>
@@ -34,19 +38,20 @@
                                             class="btn btn-info btn-xs">Ver</a>
                                     </td>
                                 </tr>
-                                    @php
-                                        $walletByBill = $walletByBill + $client->amount_neto;
-                                        $borrowedLoan = $borrowedLoan + $client->summary_total;
-                                    @endphp
+                                @php
+                                    $walletByBill = $walletByBill + ($client->amount_neto / (1 + $client->utility)); //saldo
+                                    $utility_total = $utility_total + ($client->amount_neto / (1 + $client->utility)) * $client->utility; //utilidad
+                                    $borrowedLoan = $borrowedLoan + $client->summary_total; //valor
+                                @endphp
                                 @endforeach
 
                             </tbody>
                         </table>
                         <footer class="widget-footer">
-                            <p><b>Cartera por cobrar </b> <span class="text-primary">{{ $total_rest }}</span> de <span
-                                    class="text-success">{{$total_credit}}</span></p>
                             <p><b>Valor prestado : </b> <span class="text-primary">{{$walletByBill}}</span>
+                            <p><b>Utilidades : </b> <span class="text-primary">{{$utility_total}}</span>
                             <p><b>Falta cobrar : </b> <span class="text-primary">{{$borrowedLoan}}</span>
+                            <p><b>Clientes totales </b> <span class="text-primary">{{ count($clients) }}</span></p>
                         </footer>
                     </div><!-- .widget -->
                     {{-- <div class="col-lg-12 text-right">

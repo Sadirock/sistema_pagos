@@ -1,20 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateAgentHasSupervisorTable extends Migration
+return new class extends Migration
 {
     /**
-     * Schema table name to migrate
-     * @var string
-     */
-    public $set_schema_table = 'agent_has_supervisor';
-
-    /**
      * Run the migrations.
-     * @table agent_has_supervisor
      *
      * @return void
      */
@@ -28,22 +21,17 @@ class CreateAgentHasSupervisorTable extends Migration
             $table->integer('id_supervisor')->nullable()->default(null);
             $table->timestamp('created_at')->nullable()->default(null);
             $table->float('base')->nullable()->default('0');
-            $table->integer('id_wallet')->nullable()->default(null);     
+            $table->integer('id_wallet')->nullable()->default(null);
+            $table->string('history')->nullable()->default(null); //null or log
         });
     }
-
-    // Cuando se agregue la primera base, esta se le colocará dos campos, uno con log y otro sin él. El log es para el historial
-    // cada vez que se guarde la nueva base.
-
-
-
     /**
      * Reverse the migrations.
      *
      * @return void
      */
-     public function down()
-     {
-       Schema::dropIfExists($this->set_schema_table);
-     }
-}
+    public function down()
+    {
+        //
+    }
+};

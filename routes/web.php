@@ -41,6 +41,7 @@ Route::prefix('supervisor')->group(function () {
     Route::resource('bill', 'billsupervisorController');
     Route::resource('credit', 'creditController');
     Route::resource('summary', 'supervisorSummaryController');
+    Route::resource('historyBase', 'historyBaseController');
 
     /*-----Sub Menu-----*/
     Route::prefix('menu')->middleware(['auth'])->group(function () {

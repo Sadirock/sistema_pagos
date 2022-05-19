@@ -168,7 +168,7 @@ class adminUserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {        
         $act = $request->act;
         switch ($act) {
             case 'assign':

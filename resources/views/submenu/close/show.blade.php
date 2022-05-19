@@ -33,20 +33,16 @@
                                     <div class="form-group">
                                         <label for="base_amount">Total Cuadre:</label>
                                         <input type="text" name="today" value="{{($base) ? $total : 'No existe cierre del día'}}" readonly class="form-control" id="base_amount" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="base_amount">Efectividad:</label>
-                                        <input type="text" name="today" value="{{($base) ? $average : 'No existe cierre del día'}}" readonly class="form-control" id="base_amount" required>
-                                    </div>
+                                    </div>                                    
                                 </form>
 
                             </div><!-- .widget-body -->
                         </div><!-- .widget -->
                     </div><!-- END column -->
                 </div><!-- .row -->
-                <div class="col-lg-12 text-right">
+                {{-- <div class="col-lg-12 text-right">
                     <a href="{{url('supervisor/review/')}}/{{$id_wallet}}" class="btn btn-inverse"><i class="fa fa-arrow-left"></i> Regresar</a>
-                </div>
+                </div> --}}
             </section>
         </div>
     </main>
