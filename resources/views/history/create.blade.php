@@ -34,11 +34,7 @@
                                     <div class="form-group">
                                         <label for="base_amount">Total Cuadre:</label>
                                         <input type="text" name="today" value="{{$total}}" readonly class="form-control" id="base_amount" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="base_amount">Efectividad:</label>
-                                        <input type="text" name="today" value="{{$average}}" readonly class="form-control" id="base_amount" required>
-                                    </div>
+                                    </div>                                  
                                 </form>
 
                             </div><!-- .widget-body -->

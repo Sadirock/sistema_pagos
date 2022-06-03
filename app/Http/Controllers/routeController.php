@@ -121,10 +121,13 @@ class routeController extends Controller
             ->where('order_list', $direction, $id)
             ->where('status', 'inprogress')
             ->first();
-
+       
+            //dd(Auth::id() . ' ' .  $order . ' ' . $direction . ' ' . $id . ' ' . $data->toSql());
+            //dd($data);
         $no_pay = db_not_pay::whereDate('created_at', Carbon::now()->toDateString())
             ->where('id_credit', $data->id)
             ->exists();
+       
 
         db_credit::where('id', $id_credit)->update([
             'order_list' => ($data->order_list)

@@ -10,7 +10,7 @@
                                 <div class="widget stats-widget">
                                     <div class="widget-body clearfix bg-info">
                                         <div class="pull-left">
-                                            <h3 class="widget-title text-white">Historia de credito</h3>
+                                            <h3 class="widget-title text-white">Historia de creditos</h3>
                                         </div>
                                         <span class="pull-right big-icon watermark"><i class="fa fa-history"></i></span>
                                     </div>
@@ -70,7 +70,7 @@
                             </a>
 
                         </div>
-                        <div class="col-md-3 col-sm-6">
+                        {{-- <div class="col-md-3 col-sm-6">
                             <a href="{{url('supervisor/menu/edit/create')}}?id_wallet={{$id}}">
                                 <div class="widget stats-widget">
                                     <div class="widget-body clearfix bg-danger">
@@ -81,7 +81,7 @@
                                     </div>
                                 </div><!-- .widget -->
                             </a>
-                        </div>
+                        </div> --}}
                         <div class="col-md-3 col-sm-6">
                             <a href="{{url('supervisor/menu/report')}}/{{$id}}">
                                 <div class="widget stats-widget">

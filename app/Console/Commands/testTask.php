@@ -33,16 +33,12 @@ class testTask extends Command
     public function handle()
     {
         $data = DB::table('agent_has_supervisor')->get();
-        $texto = '';
-
         foreach($data as $field){
             DB::table('open_days')->insert([
                 'id_agent' => $field->id_user_agent,
-                'id_supervisor' => $field->id_supervisor                
-            ]);
-            $texto = $texto . " [". date("Y-m-d H:i:s") . "]: Código Supervisor: ". $field->id_supervisor . " Código agente: ". $field->id_user_agent . " </br>"; 
+                'id_supervisor' => $field->id_supervisor,
+                'created_at' => Carbon::now()
+            ]);   
         }
-        
-        Storage::append("archivo.txt", $texto);  
     }
 }

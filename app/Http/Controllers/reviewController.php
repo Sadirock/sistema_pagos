@@ -27,6 +27,7 @@ class reviewController extends Controller
      */
     public function create()
     {
+        
         $user_current = Auth::user();
         $ormSqlWallet = db_supervisor_has_agent::join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
             ->join('users', 'agent_has_supervisor.id_user_agent', '=', 'users.id')
@@ -63,7 +64,7 @@ class reviewController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    {        
         return view('supervisor_review.show', array('id' => $id));
     }
 

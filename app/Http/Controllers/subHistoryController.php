@@ -38,12 +38,15 @@ class subHistoryController extends Controller
 
 
         foreach ($data as $datum){
+            $datum->setAttribute('utility_amount', floatval($datum->utility * $datum->amount_neto));
+            $datum->setAttribute('payment_amount', (floatval($datum->amount_neto + $datum->utility_amount) / floatval($datum->payment_number)));                
             $datum->setAttribute('amount_neto',($datum->amount_neto)+($datum->amount_neto*$datum->utility));
             $datum->summary_total = $datum->amount_neto-(db_summary::where('id_credit',$datum->credit_id)
                 ->sum('amount'));
 
             $datum->number_index = db_summary::where('id_credit',$datum->credit_id)
                     ->count();
+            $datum->setAttribute('payment_current', db_summary::where('id_credit', $datum->credit_id)->count());
         }
 
         $data_wallet = db_supervisor_has_agent::where('id_supervisor',Auth::id())
@@ -110,17 +113,21 @@ class subHistoryController extends Controller
                 return 'ID No existe';
             }
         }
+        
         $id_agent = db_supervisor_has_agent::where('id_supervisor',Auth::id())->first()->id_user_agent;
+        
+        // Averiguar como ver el SQL  dd($id_agent->toSql());
+
         $sql[]=['id_agent','=',$id_agent];
         if(isset($id_credit)){
             $sql[]=['id_credit','=',$id_credit];
         }
         $data_credit = db_credit::find($id_credit);
         $tmp = db_summary::where($sql)->get();
+        
         $amount = floatval(db_credit::find($id_credit)->amount_neto)+floatval(db_credit::find($id_credit)->amount_neto*db_credit::find($id_credit)->utility);
         foreach ($tmp as $t){
-
-            $amount-= $t->amount;
+            $amount -= $t->amount;
             $t->rest = $amount;
         }
         $data_credit->utility_amount = floatval($data_credit->utility*$data_credit->amount_neto);

@@ -79,7 +79,7 @@
                                 </div>
                             @endif
 
-                            <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                            <table id="example" class="table agente-route-table dataTable no-footer table-striped table-bordered dt-responsive nowrap" style="width:100%">
 
                                 <thead>
                                 <tr>                                   
@@ -123,15 +123,16 @@
                                         </td> --}}
                                         
                                         <td>
-                                            {{-- <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=up" class="btn btn-default btn-xs arw-up btn-center-arrow"><i class="fa fa-arrow-up"></i></a> --}}
+                                            <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=up" class="btn btn-default btn-xs arw-up btn-center-arrow"><i class="fa fa-arrow-up"></i></a> 
                                             <a href="{{url('payment')}}/{{$client->id}}" class="btn btn-success btn-xs hidden"><i class="fa fa-money"></i> Pagar</a>                                            
                                             <a href="{{url('summary')}}?id_credit={{$client->id}}" class="btn btn-info btn-xs hidden"><i class="fa fa-history"></i> Ver</a>
-                                            {{-- <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=down" class="btn btn-default btn-xs arw-down btn-center-arrow"><i class="fa fa-arrow-down"></i></a> --}}
+                                            <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=down" class="btn btn-default btn-xs arw-down btn-center-arrow"><i class="fa fa-arrow-down"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
 
-                                </tbody></table>
+                                </tbody>
+                            </table>
                         </div><!-- .widget -->
                     </div>
                 </div><!-- .row -->

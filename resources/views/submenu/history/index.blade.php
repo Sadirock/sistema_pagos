@@ -31,8 +31,13 @@
                                     <td><span class="value">{{($client->amount_neto / (1 + $client->utility))}}</span></td>
                                     <td><span class="value">{{($client->amount_neto / (1 + $client->utility)) * $client->utility }}</span></td>
                                     <td><span class="value">{{($client->summary_total)}}</span></td>
-                                    <td><span class="value">{{$client->number_index}}/{{$client->payment_number}}</span>
-                                    </td>
+                                    
+                                    @if($client->payment_current < 1)
+                                         <td>{{$client->payment_current}} / {{$client->payment_number}}</td>
+                                    @else 
+                                         <td>{{floor(($client->amount_neto  - $client->summary_total) / $client->payment_amount)}}  / {{$client->payment_number}} </td>
+                                    @endif
+                                    
                                     <td>
                                         <a href="{{url('supervisor/menu/history')}}/{{$client->credit_id}}"
                                             class="btn btn-info btn-xs">Ver</a>

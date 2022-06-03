@@ -42,7 +42,7 @@ Route::prefix('supervisor')->group(function () {
     Route::resource('credit', 'creditController');
     Route::resource('summary', 'supervisorSummaryController');
     Route::resource('historyBase', 'historyBaseController');
-    Route::resource('open', 'OpenDaycontroller');
+    Route::resource('open', 'OpenDayController');
 
     /*-----Sub Menu-----*/
     Route::prefix('menu')->middleware(['auth'])->group(function () {

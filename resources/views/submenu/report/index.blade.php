@@ -13,6 +13,7 @@
                                 <tbody>
                                 <tr class="visible-lg">
                                     <th>Fecha cierre</th>
+                                    <th>Nombre Cartera</th>
                                     <th>Base</th>
                                     <th>Recaudo</th>
                                     <th>Creditos</th>
@@ -25,6 +26,7 @@
                                 @foreach($credit as $cred)
                                     <tr>
                                         <td><span class="value">{{$cred->created_at}}</span></td>
+                                        <td><span class="value">{{$name_wallet}}</span></td>
                                         <td><span class="value">{{$cred->base_before}}</span></td>
                                         <td><span class="value">{{$cred->summary_total}}</span></td>
                                         <td><span class="value">{{$cred->credit_total}}</span></td>
@@ -32,18 +34,16 @@
                                         <td><span class="value">{{$cred->total_day}}</span></td>
                                         <td><span class="value">{{$cred->supervisor_bills}}</span></td>
                                         <td><span class="value">{{$cred->base_wallet}}</span></td>
-
-
                                     </tr>
                                 @endforeach
 
                                 </tbody></table>
                         </div><!-- .widget -->
                     </div>
-                </div><!-- .row -->
-                <div class="col-lg-12 text-right">
+                </div><!-- .row -->                
+                {{-- <div class="col-lg-12 text-right">
                     <a href="{{url('supervisor/review/')}}/{{$id_wallet}}" class="btn btn-inverse"><i class="fa fa-arrow-left"></i> Regresar</a>
-                </div>
+                </div> --}}
             </section>
         </div>
     </main>

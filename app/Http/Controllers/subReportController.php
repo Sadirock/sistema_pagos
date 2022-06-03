@@ -6,6 +6,7 @@ use App\db_bills;
 use App\db_close_day;
 use App\db_credit;
 use App\db_summary;
+use App\db_wallet;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,8 @@ class subReportController extends Controller
         $date_start = $request->date_start;
         $date_end = $request->date_end;
         $id_wallet = $request->id_wallet;
+        $name_wallet = db_wallet::select('name')->where('id',$id_wallet)->first();
+        
 
         if(!isset($date_start)){return 'Fecha Inicio';};
         if(!isset($date_end)){return 'Fecha Final';};
@@ -61,13 +64,16 @@ class subReportController extends Controller
                 ->sum('amount');
             $datum->base_wallet = ($datum->base_before+$datum->summary_total)-($datum->credit_total+$datum->bills_total+$datum->supervisor_bills);
         }
+        
 
         $data = array(
             'credit' => $data,
             'date_start' => $date_start,
             'date_end' => $date_end,
-            'id_wallet' => $id_wallet
+            'id_wallet' => $id_wallet,
+            'name_wallet'=> $name_wallet->name
         );
+        
 //(base+recaudo)-(creditos+gastos)
         return view('submenu.report.index',$data);
     }
