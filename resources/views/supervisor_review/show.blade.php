@@ -16,7 +16,6 @@
                                     </div>
                                 </div><!-- .widget -->
                             </a>
-
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <a href="{{url('supervisor/menu/transitions/create')}}?id_wallet={{$id}}">
@@ -29,7 +28,6 @@
                                     </div>
                                 </div><!-- .widget -->
                             </a>
-
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <a href="{{url('supervisor/menu/route')}}?id_wallet={{$id}}">
@@ -42,7 +40,6 @@
                                     </div>
                                 </div><!-- .widget -->
                             </a>
-
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <a href="{{url('supervisor/menu/bill')}}/{{$id}}">
@@ -70,7 +67,7 @@
                             </a>
 
                         </div>
-                        {{-- <div class="col-md-3 col-sm-6">
+                        <div class="col-md-3 col-sm-6">
                             <a href="{{url('supervisor/menu/edit/create')}}?id_wallet={{$id}}">
                                 <div class="widget stats-widget">
                                     <div class="widget-body clearfix bg-danger">
@@ -81,7 +78,7 @@
                                     </div>
                                 </div><!-- .widget -->
                             </a>
-                        </div> --}}
+                        </div>
                         <div class="col-md-3 col-sm-6">
                             <a href="{{url('supervisor/menu/report')}}/{{$id}}">
                                 <div class="widget stats-widget">

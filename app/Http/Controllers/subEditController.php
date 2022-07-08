@@ -51,6 +51,7 @@ class subEditController extends Controller
     public function show(Request $request,$id)
     {
         $date_start = $request->date_start;
+        $date_format = Carbon::createFromFormat('d/m/Y',$date_start)->toDateString();
         $date_end = $request->date_end;
 
         if(!isset($date_start)){return 'Fecha Inicio Vacia';};
@@ -100,14 +101,18 @@ class subEditController extends Controller
             ->where('id_wallet',$id)
             ->get();
 
+        $dateF = Carbon::parse($date_format)->isToday();
+        //$dateF = $dateF->isToday();
+
         $data = array(
             'summary' => $data_summary,
             'credit' => $data_credit,
             'bills' => $data_bill,
             'id_wallet'=>$id,
-            'date_start' => $date_start
+            'date_start' => $date_start,
+            'dateF' => $dateF
         );
-
+         
         return view('submenu.edit.index',$data);
     }
 

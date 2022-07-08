@@ -9,7 +9,7 @@
                     <div class="col-md-12">
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Detalles Clientes y Ventas</h4>
-                            <table class="table table-striped table-bordered dt-responsive nowrap client-table">
+                            <table id="table1"   class="table table-striped table-bordered dt-responsive nowrap">
                                 <thead class="visible-lg">
                                 <tr>
                                     <th>Nombre</th>
@@ -44,8 +44,14 @@
 
                                         </td>
                                         <td>
-                                            <a href="{{url('client/create')}}?id={{$client->id}}" class="btn btn-success btn-xs">Venta</a>
-                                            <a href="{{url('client')}}/{{$client->id}}" class="btn btn-info btn-xs">Datos</a>
+                                            <form action="{{url('client/create')}}?id={{$client->id}}" method="get">
+                                                <button class="btn btn-success btn-xs">Venta</button>
+                                            </form> 
+                                            <form action="{{url('client')}}/{{$client->id}}" method="get">
+                                                <button class="btn btn-info btn-xs">Datos</button>
+                                            </form> 
+
+                                            
                                             @if(isset($client->lat) && isset($client->lng))
                                                 <a href="http://www.google.com/maps/place/{{$client->lat}},{{$client->lng}}" target="_blank" class="btn btn-info btn-xs">Ver Mapa</a>
                                             @endif

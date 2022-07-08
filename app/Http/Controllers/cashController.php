@@ -8,6 +8,7 @@ use App\db_summary;
 use App\db_supervisor_has_agent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class cashController extends Controller
 {
@@ -18,20 +19,28 @@ class cashController extends Controller
      */
     public function index()
     {
-        $data = db_supervisor_has_agent::where('id_supervisor',Auth::id())
+        $data2 = db_supervisor_has_agent::where('id_supervisor',Auth::id())
             ->join('wallet','id_wallet','=','wallet.id')
             ->get();
         $sum = db_supervisor_has_agent::where('id_supervisor',Auth::id())
             ->join('wallet','id_wallet','=','wallet.id')
             ->sum('agent_has_supervisor.base');
-        $report = db_close_day::where('id_supervisor',Auth::id())->orderBy('id','desc')->get();
+        $report = db_close_day::where('id_supervisor',Auth::id())->orderBy('id','desc')->toSql();
+
+        $report = DB::table('close_day AS cd')
+            ->join('agent_has_supervisor AS asu', 'id_agent','=', 'asu.id_user_agent')
+            ->join('wallet AS w', 'w.id','=', 'asu.id_wallet')            
+            ->where('cd.id_supervisor' , '=', Auth::id())
+            ->orderBy('cd.id','desc')            
+            ->get();
+
+        
 
         $data = array(
-            'clients' => $data,
+            'clients' => $data2,
             'report' => $report,
             'sum' => $sum
         );
-
         return view('supervisor_cash.index',$data);
     }
 

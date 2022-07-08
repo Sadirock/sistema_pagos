@@ -79,7 +79,7 @@
                                 </div>
                             @endif
 
-                            <table id="example" class="table agente-route-table dataTable no-footer table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                            <table id="CC2" class="table dataTable table-striped table-bordered dt-responsive nowrap" >
 
                                 <thead>
                                 <tr>                                   
@@ -101,27 +101,14 @@
                                     <tr id="td_{{$client->id}}">
                                         <td>{{$client->user->name}} {{$client->user->last_name}}</td>
                                         <td>{{$client->user->province}}</td>
+
                                         <td>{{$client->amount_neto}}</td>
                                         <td>{{$client->amount_neto * $client->utility}}</td>
+                                        
                                         <td id="saldo">{{$client->saldo}}</td>
                                         <td>{{$client->quote}}</td>
                                         <td>{{$client->days_rest}}</td>
-                                        <td class="hidden">{{$client->order_list}}</td>                                        
-                                       
-                                        {{--
-                                            @if($client->last_pay)
-                                                <td>{{$client->last_pay->created_at}}</td>
-                                            @else
-                                                <td>No hay pagos</td>
-                                            @endif
-                                         <td>
-                                            @if($client->user->status=='good')
-                                                <span class="badge-info badge">BUENO</span>
-                                            @elseif($client->user->status=='bad')
-                                                <span class="badge-danger badge">MALO</span>
-                                            @endif
-                                        </td> --}}
-                                        
+                                        <td class="hidden">{{$client->order_list}}</td>
                                         <td>
                                             <a href="{{url('route')}}/{{$client->order_list}}/edit?id_credit={{$client->id}}&direction=up" class="btn btn-default btn-xs arw-up btn-center-arrow"><i class="fa fa-arrow-up"></i></a> 
                                             <a href="{{url('payment')}}/{{$client->id}}" class="btn btn-success btn-xs hidden"><i class="fa fa-money"></i> Pagar</a>                                            

@@ -70,8 +70,12 @@
                                             <option value="0.1">10%</option>
                                             <option value="0.15">15%</option>
                                             <option value="0.2" selected>20%</option>
-                                            <option value="0.25">25%</option>
+                                            <option value="0.25">25%</option>                                            
                                             <option value="0.30">30%</option>
+                                            <option value="0.35">35%</option>
+                                            <option value="0.40">40%</option>
+                                            <option value="0.45">45%</option>
+                                            <option value="0.50">50%</option>
                                         </select>
                                     </div>
                                     <div class="form-group">

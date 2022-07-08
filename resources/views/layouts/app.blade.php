@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="{{ app()->getLocale() }}">
 
 <head>
@@ -12,8 +13,9 @@
 
     <link rel="stylesheet" href="{{ asset('libs/bower/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet"
-        href="{{ asset('libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css') }}">
+    href="{{ asset('libs/bower/material-design-iconic-font/dist/css/material-design-iconic-font.css') }}">
     <!-- build:css ../assets/css/app.min.css -->
+
     <link rel="stylesheet" href="{{ asset('libs/bower/animate.css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('libs/bower/fullcalendar/dist/fullcalendar.min.css') }}">
     <link rel="stylesheet" href="{{ asset('libs/bower/perfect-scrollbar/css/perfect-scrollbar.css') }}">
@@ -31,9 +33,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900,300">
     <script src="{{asset('libs/bower/breakpoints.js/dist/breakpoints.min.js')}}"></script>
     <script>
-        Breakpoints();
+       Breakpoints();
     </script>
-   
+
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
 </head>
@@ -41,15 +43,10 @@
 <body class="theme-primary menubar-light pace-done menubar-top">
     <!--============= start main area -->
     @include('layout.navbar')
-
     @include('layout.navbarsearch')
-
     @yield('content')
-
     @include('layout.sidepanel')
-
 </body>
 
 @include('layout.script')
-
 </html>

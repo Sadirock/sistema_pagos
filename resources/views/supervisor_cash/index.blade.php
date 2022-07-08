@@ -40,11 +40,13 @@
                             <table class="table client-table">
                                 <tbody>
                                 <tr class="visible-lg">
+                                    <th>Cartera</th>
                                     <th>Fecha</th>
                                     <th>Saldo Base</th>
                                 </tr>
                                 @foreach($report as $r)
                                     <tr>
+                                        <td>{{$r->name}}</td>
                                         <td>{{$r->created_at}}</td>
                                         <td>{{$r->total}}</td>
                                     </tr>

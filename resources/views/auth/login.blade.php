@@ -2,7 +2,8 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="UTF-8">
-    <title>{{config("app.name")}}</title>
+    
+    <title>{{config('app.name')}}s</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="Admin, Dashboard, Bootstrap" />

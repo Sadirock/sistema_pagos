@@ -53,10 +53,12 @@ class historyController extends Controller
     {
         $date = $request->date_start;
         $base_amount = db_supervisor_has_agent::where('id_user_agent',Auth::id())->first()->base;
+        
         $today_amount = db_summary::whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date)
             ->toDateString())
             ->where('id_agent',Auth::id())
             ->sum('amount');
+
         $today_sell = db_credit::whereDate('created_at','=',Carbon::createFromFormat('d/m/Y', $date)
             ->toDateString())
             ->where('id_agent',Auth::id())
@@ -75,7 +77,8 @@ class historyController extends Controller
             'total' => $total,
             'average' => $average
         );
-
+        
+        dd($data);
         return view('history.create',$data);
 
     }

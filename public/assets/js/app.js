@@ -670,6 +670,25 @@ function initMap({ lat, lng }) {
         'pointer-events': 'none',
         'touch-action': 'none'
     });
+    //Order by Default
+    $(document).ready(function () {
+        $('#CC2').DataTable({
+            "destroy":true,
+            order: [[7, 'asc']],
+        });
+    });
+
+    $(document).ready(function () {
+        $('#table1').DataTable({
+            "destroy":true,
+            order: [[7, 'asc']],
+        });
+    });
+
+    $(document).ready(function () {
+        $('#adminTable').DataTable();
+    });
+
 
     //Code  supervisor-client
     $('body').on('change', '.supervisor-client #wallet', function () {

@@ -31,7 +31,7 @@
         acceptedFiles: ".jpeg,.jpg,.png,.gif"
     };
 
-    $('table').DataTable(
+    $('.table').DataTable(
         {
             "pageLength": 50,
             "language": {

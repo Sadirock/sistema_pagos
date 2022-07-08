@@ -19,7 +19,9 @@
                                     <th>Tasa</th>
                                     <th>Cuotas</th>
                                     <th>Valor</th>
-                                    <th></th>
+                                    @if($dateF)
+                                        <th></th>
+                                    @endif
                                 </tr>
                                 </thead>
 
@@ -33,16 +35,16 @@
                                         <td><span class="value">{{$cred->utility}}</span></td>
                                         <td><span class="value">{{$cred->payment_number}}</span></td>
                                         <td><span class="value">{{($cred->amount_neto)+($cred->amount_neto*$cred->utility)}}</span></td>
-                                        <td class="text-right">
-                                            <form action="{{url('supervisor/credit')}}/{{$cred->credit_id}}?date_start={{$date_start}}&id_wallet={{$id_wallet}}" method="POST">
-                                                <a href="{{url('supervisor/credit')}}/{{$cred->credit_id}}/edit?id_wallet={{$id_wallet}}" class="btn btn-xs btn-warning">Editar</a>
-                                                {{csrf_field()}}
-                                                {{ method_field('DELETE') }}
-                                                <button class="btn btn-xs btn-danger" type="submit">Eliminar</button>
-                                            </form>
-
-                                        </td>
-
+                                        @if($dateF)
+                                            <td class="text-right">
+                                                <form action="{{url('supervisor/credit')}}/{{$cred->credit_id}}?date_start={{$date_start}}&id_wallet={{$id_wallet}}" method="POST">
+                                                    <a href="{{url('supervisor/credit')}}/{{$cred->credit_id}}/edit?id_wallet={{$id_wallet}}" class="btn btn-xs btn-warning">Editar</a>
+                                                    {{csrf_field()}}
+                                                    {{ method_field('DELETE') }}
+                                                    <button class="btn btn-xs btn-danger" type="submit">Eliminar</button>
+                                                </form>
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
 
@@ -60,7 +62,9 @@
                                     <th>Gasto</th>
                                     <th>Detalle</th>
                                     <th>Valor</th>
-                                    <th></th>
+                                    @if($dateF)
+                                        <th></th>
+                                    @endif
                                 </tr>
                                 </thead>
 
@@ -70,14 +74,16 @@
                                         <td><span class="value">{{$bill->type}}</span></td>
                                         <td><span class="value">{{$bill->description}}</span></td>
                                         <td><span class="value">{{$bill->amount}}</span></td>
-                                        <td class="text-right">
-                                            <form action="{{url('supervisor/bill')}}/{{$bill->id}}?date_start={{$date_start}}&id_wallet={{$id_wallet}}" method="POST">
-                                                <a href="{{url('supervisor/bill')}}/{{$bill->id}}/edit?id_wallet={{$id_wallet}}" class="btn btn-xs btn-warning">Editar</a>
-                                                {{csrf_field()}}
-                                                {{ method_field('DELETE') }}
-                                                <button class="btn btn-xs btn-danger" type="submit">Eliminar</button>
-                                            </form>
-                                        </td>
+                                        @if($dateF)
+                                            <td class="text-right">
+                                                <form action="{{url('supervisor/bill')}}/{{$bill->id}}?date_start={{$date_start}}&id_wallet={{$id_wallet}}" method="POST">
+                                                    <a href="{{url('supervisor/bill')}}/{{$bill->id}}/edit?id_wallet={{$id_wallet}}" class="btn btn-xs btn-warning">Editar</a>
+                                                    {{csrf_field()}}
+                                                    {{ method_field('DELETE') }}
+                                                    <button class="btn btn-xs btn-danger" type="submit">Eliminar</button>
+                                                </form>
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
 
@@ -97,7 +103,9 @@
                                     <th>Cuota</th>
                                     <th>Valor</th>
                                     <th>Saldo</th>
-                                    <th></th>
+                                    @if($dateF)
+                                        <th></th>
+                                    @endif
                                 </tr>
                                 </thead>
 
@@ -109,16 +117,16 @@
                                         <td><span class="value">{{$sum->number_index}}</span></td>
                                         <td><span class="value">{{$sum->amount}}</span></td>
                                         <td><span class="value">{{(($sum->amount_neto)+($sum->amount_neto*$sum->utility))-($sum->total_payment)}}</span></td>
+                                        @if($dateF)
                                         <td class="text-right">
-
                                             <form action="{{url('supervisor/summary')}}/{{$sum->id_summary}}?date_start={{$date_start}}" method="POST">
                                                 <a href="{{url('supervisor/summary')}}/{{$sum->id_summary}}/edit?id_wallet={{$id_wallet}}" class="btn btn-xs btn-warning">Editar</a>
                                                 {{csrf_field()}}
                                                 {{ method_field('DELETE') }}
                                                 <button class="btn btn-xs btn-danger" type="submit">Eliminar</button>
                                             </form>
-
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
 

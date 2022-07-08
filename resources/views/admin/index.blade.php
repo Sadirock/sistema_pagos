@@ -11,25 +11,27 @@
                     <div class="widget p-lg">
                         <h4 class="m-b-lg">Usuarios</h4>
                         <table class="table admin-table">
-                            <tbody>
+                            <thead>                                
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Usuario</th>
                                     <th>Nombre</th>
-                                    <th>Nivel</th>
+                                    <th>Usuario</th>
                                     <th>Cartera</th>
                                     <th>Supervisor</th>
+                                    <th>ID</th>
+                                    <th>Nivel</th>
                                     <th></th>
                                 </tr>
+                            </thead>
+                            <tbody>
                                 @foreach($clients as $client)
                                 @if($client->active_user=='enabled')
                                 <tr>
-                                    <td>{{$client->level}}</td>
-                                    <td>{{$client->email}}</td>
                                     <td>{{$client->name}}</td>
-                                    <td>{{$client->level}}</td>
+                                    <td>{{$client->email}}</td>
                                     <td>{{$client->wallet_name}}</td>
                                     <td>{{$client->supervisor}}</td>
+                                    <td>{{$client->id}}</td>
+                                    <td>{{$client->level}}</td>
                                     <td>
                                         @if(Auth::user()->level == 'admin')
                                             <form action="{{url('admin/user')}}/{{$client->id}}" method="POST"

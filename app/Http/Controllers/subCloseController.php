@@ -56,7 +56,9 @@ class subCloseController extends Controller
 
         $id_wallet = $id;
         $date_start = $request->date_start;
-
+        // session(['idCarroCompra' => '15320']);
+        // $valor_almacenado = session('idCarroCompra');
+        // dd($valor_almacenado);
         if (!isset($date_start)) {
             return 'Fecha inicial vacia';
         };
@@ -68,7 +70,6 @@ class subCloseController extends Controller
         if (!isset($id_wallet)) {
             return 'ID wallet vacio';
         };
-
 
 
         $today_amount = db_summary::whereDate('created_at', Carbon::createFromFormat('d/m/Y', $date_start)
@@ -87,6 +88,10 @@ class subCloseController extends Controller
             ->sum('amount');
 
         $base_amount = false;
+        // dd(Auth::id());
+        // dd(db_close_day::whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())
+        // ->where('id_supervisor', Auth::id())->toSql());
+
         if (db_close_day::whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())
             ->where('id_supervisor', Auth::id())
             ->exists()) {
@@ -106,7 +111,7 @@ class subCloseController extends Controller
             'average' => $average,
             'id_wallet' => $id
         );
-
+        
         return view('submenu.close.show', $data);
     }
 
