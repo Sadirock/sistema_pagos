@@ -9,6 +9,7 @@
                     <div class="col-md-12">
                         <div class="widget p-lg">
                             <h4 class="m-b-lg">Detalles Clientes y Ventas</h4>
+                            
                             <table id="table1"   class="table table-striped table-bordered dt-responsive nowrap">
                                 <thead class="visible-lg">
                                 <tr>

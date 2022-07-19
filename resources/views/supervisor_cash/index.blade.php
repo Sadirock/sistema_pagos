@@ -47,7 +47,7 @@
                                 @foreach($report as $r)
                                     <tr>
                                         <td>{{$r->name}}</td>
-                                        <td>{{$r->created_at}}</td>
+                                        <td>{{$r->created}}</td>
                                         <td>{{$r->total}}</td>
                                     </tr>
                                 @endforeach

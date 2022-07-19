@@ -677,9 +677,8 @@ function initMap({ lat, lng }) {
             order: [[7, 'asc']],
         });
     });
-
     $(document).ready(function () {
-        $('#table1').DataTable({
+        $('#adminTable').DataTable({
             "destroy":true,
             order: [[7, 'asc']],
         });

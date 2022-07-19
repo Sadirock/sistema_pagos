@@ -37,7 +37,7 @@ class closeController extends Controller
             ->whereDate('open_days.created_at', '=', Carbon::now()->toDateString())
         ->get();
          
-        foreach ($data as $datum){
+        foreach ($data as $datum){            
             $datum->show = true;
             $datum->wallet_name = db_wallet::where('id',$datum->id_wallet)->first()->name;
             $summary=db_summary::whereDate('created_at','=',Carbon::now()->toDateString())

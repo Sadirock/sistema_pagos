@@ -16,7 +16,7 @@
     <!-- navbar header -->
     <div class="navbar-header">
 
-        <a href="{{url('logout')}}" class="navbar-toggle navbar-toggle-right collapsed p-3">
+        <a href="{{url('logout')}}" class="navbar-toggle navbar-toggle-left collapsed p-3">
             <i class="fa fa-2x fa-sign-out"></i>
         </a>
 

@@ -80,11 +80,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="payment_number">Cuotas:</label>
-                                        <select name="payment_number" class="form-control" id="payment_number">
+                                        {{-- <select name="payment_number" class="form-control" id="payment_number">
                                             @foreach($payment_number as $p)
                                                 <option {{($p->selected) ? 'selected':'' }} value="{{$p->name}}">{{$p->name}}</option>
                                             @endforeach
-                                        </select>
+                                        </select> --}}
+                                        <input type="number" name="payment_number" value="{{isset($user) ? $user->cuota : ''}}"
+                                        class="form-control" id="payment_number" required>
                                     </div>
                                     <div class="form-group text-center total-box hidden">
                                         <h4>Total + Utilidad</h4>

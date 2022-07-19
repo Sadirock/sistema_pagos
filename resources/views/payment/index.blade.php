@@ -81,7 +81,6 @@
                                     <th>Saldo</th>
                                     <th>Cuota</th>
                                     <th></th>
-                                    <th></th>
                                 </tr>
                                 </thead>
 

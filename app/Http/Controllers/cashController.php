@@ -31,11 +31,10 @@ class cashController extends Controller
             ->join('agent_has_supervisor AS asu', 'id_agent','=', 'asu.id_user_agent')
             ->join('wallet AS w', 'w.id','=', 'asu.id_wallet')            
             ->where('cd.id_supervisor' , '=', Auth::id())
+            ->select('*', 'cd.created_at as created')
             ->orderBy('cd.id','desc')            
             ->get();
-
-        
-
+       
         $data = array(
             'clients' => $data2,
             'report' => $report,
