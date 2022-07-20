@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <main id="app-main" class="app-main in">
+    <main id="app-main" class="app-main in">        
         <div class="wrap">
             <section class="app-content">
                     <div class="row">
@@ -67,6 +67,7 @@
                             </a>
 
                         </div>
+                        
                         <div class="col-md-3 col-sm-6">
                             <a href="{{url('supervisor/menu/edit/create')}}?id_wallet={{$id}}">
                                 <div class="widget stats-widget">
@@ -79,19 +80,20 @@
                                 </div><!-- .widget -->
                             </a>
                         </div>
+
                         <div class="col-md-3 col-sm-6">
                             <a href="{{url('supervisor/menu/report')}}/{{$id}}">
                                 <div class="widget stats-widget">
                                     <div class="widget-body clearfix bg-info">
                                         <div class="pull-left">
-                                            <h3 class="widget-title text-white">Movimiento</h3>
+                                            <h3 class="widget-title text-white">Movimientos</h3>
                                         </div>
                                         <span class="pull-right big-icon watermark"><i class="fa fa-list-ol"></i></span>
                                     </div>
                                 </div><!-- .widget -->
                             </a>
-
                         </div>
+
                         <div class="col-md-3 col-sm-6">
                             <a href="{{url('supervisor/menu/done')}}/{{$id}}">
                                 <div class="widget stats-widget">

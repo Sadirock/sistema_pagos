@@ -15,6 +15,7 @@
                             <div class="widget-body">
                                 <form method="GET" action="{{url('supervisor/menu/report')}}" enctype="multipart/form-data">
                                     <input type="hidden" value="{{$id_wallet}}" name="id_wallet">
+                                    <input type="hidden" value="{{$id_agent}}" name="id_agent">
                                     <div class="form-group">
                                         <label for="nit_number"> Fecha Inicial:</label>
                                         <input type="text" name="date_start"  class="form-control datepicker-trigger" id="date_start" required>

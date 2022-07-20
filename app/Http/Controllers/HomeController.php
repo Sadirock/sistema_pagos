@@ -80,7 +80,9 @@ class HomeController extends Controller
             ->select('bills.*', 'wallet.name as wallet_name')
             ->get();
 
+        $textColor = $base > 0 ? 'dark' : 'danger';
         $data = [
+            'color' => $textColor,
             'base_agent' => $base,
             'total_bill' => $bill->sum('amount'),
             'total_summary' => $total_summary,

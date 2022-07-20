@@ -288,14 +288,13 @@
             <div class="widget-body clearfix h-100 bg-white">
                 <div class="pull-left">
                     <h3 class="widget-title text-dark">DISPONIBLE (CAJA)</h3>
-                    <h3 class="widget-title text-dark">
+                    <h3 class="widget-title text-{{$color}}">
                         <b>{{$base_agent - $total_bill}}</b>
                         @if($total_summary>0)
-                        <span>+</span>
-                        <span class=""> {{$total_summary}}</span>
-                        <span class="text-success">= {{($base_agent - $total_bill) + $total_summary}}</span>
+                            <span>+</span>
+                            <span class=""> {{$total_summary}}</span>
+                            <span class="text-success">= {{($base_agent - $total_bill) + $total_summary}}</span>
                         @endif
-
                     </h3>
                 </div>
                 <span class="pull-right big-icon text-danger watermark"><i class="fa fa-arrow-down"></i></span>

@@ -26,8 +26,7 @@ class reviewController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        
+    {        
         $user_current = Auth::user();
         $ormSqlWallet = db_supervisor_has_agent::join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
             ->join('users', 'agent_has_supervisor.id_user_agent', '=', 'users.id')

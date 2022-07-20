@@ -7,6 +7,7 @@ use App\db_close_day;
 use App\db_credit;
 use App\db_summary;
 use App\db_wallet;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,17 +24,22 @@ class subReportController extends Controller
     {
         $date_start = $request->date_start;
         $date_end = $request->date_end;
-        $id_wallet = $request->id_wallet;
-        $name_wallet = db_wallet::select('name')->where('id',$id_wallet)->first();
         
-
+        $id_wallet = $request->id_wallet;
+        $id_agent = $request->id_agent;
+        
+        $name_wallet = db_wallet::select('name')->where('id',$id_wallet)->first();
+               
+        
         if(!isset($date_start)){return 'Fecha Inicio';};
         if(!isset($date_end)){return 'Fecha Final';};
         if(!isset($id_wallet)){return 'ID wallet';};
+        if(!isset($id_agent)){return 'ID Agente';};
 
         $data = db_close_day::whereDate('close_day.created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
             ->whereDate('close_day.created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
             ->where('id_supervisor',Auth::id())
+            ->where('users.id',$id_agent)
             ->join('users','close_day.id_agent','=','users.id')
             ->join('credit','users.id','=','credit.id_agent')
             ->select(
@@ -43,7 +49,6 @@ class subReportController extends Controller
                 'close_day.id',
                 'close_day.id_agent',
                 DB::raw('SUM(credit.amount_neto) as credit_total'),//creditos
-
                 DB::raw('SUM(credit.utility) as credit_utility')//%diario
             )
             ->groupBy('close_day.id')
@@ -107,7 +112,14 @@ class subReportController extends Controller
      */
     public function show($id)
     {
-        return view('submenu.report.create',array('id_wallet'=>$id));
+        $pos = strpos($id, '=') + 1 ;        
+        $id_u = substr($id, $pos); //agente
+
+        $id_w = strpos($id, '&');
+        $id_w = substr($id, 0 , $id_w);
+
+        
+        return view('submenu.report.create',array('id_wallet'=>$id_w, 'id_agent'=>$id_u ));
     }
 
     /**

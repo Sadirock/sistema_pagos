@@ -38,7 +38,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">                                                                                
-                                        <a style="cursor : default; pointer-events:none" id="link_client_review" class="btn btn-light btn-block" href="{{url('supervisor/review')}}">Auditar</a>
+                                        <a style="cursor : default; pointer-events:none" id="link_client_review" class="btn btn-light btn-block" href="{{ url('supervisor/review')}}">Auditar</a>
                                     </div>
                                 </form>
 

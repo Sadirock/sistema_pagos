@@ -716,7 +716,33 @@ function initMap({ lat, lng }) {
         //alert(href);
         //alert (href.substr(0, href.lastIndexOf('w')+1));    
         //$('#link_client_review').attr('disabled', false);
-        $('#link_client_review').attr('href', href.substr(0, href.lastIndexOf('w') + 1) + "/" + $(this).val());
+        //$('#link_client_review').attr('href', href.substr(0, href.lastIndexOf('w') + 1) + "/" + $(this).val());
+        var e = document.getElementById("agent");        
+        $('#link_client_review').attr('href', href.substr(0, href.lastIndexOf('w') + 1) + "/" + $(this).val() + "&a=" + e.value);
+    });
+
+    $('body').on('submit', '.payment-create', function () {
+        if (confirm('Esta seguro de realizar el pago (' + $('.payment-create #amount').val() + ')')) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+    //Code  agent-client
+    $('body').on('change', '.supervisor-review #agent', function () {
+        $('#link_client_review').css({
+            'cursor': 'pointer',
+            'pointer-events': 'auto'
+        });
+        $('#link_client_review').removeClass('btn-light');
+        $('#link_client_review').addClass('btn-success');
+        let href = $('#link_client_review').attr('href');
+        //alert(href);
+        //alert (href.substr(0, href.lastIndexOf('w')+1));    
+        //$('#link_client_review').attr('disabled', false);
+        var e = document.getElementById("wallet");        
+        $('#link_client_review').attr('href', href.substr(0, href.lastIndexOf('w') + 1) + "/" + e.value +"&a=" + $(this).val());
     });
 
     $('body').on('submit', '.payment-create', function () {
