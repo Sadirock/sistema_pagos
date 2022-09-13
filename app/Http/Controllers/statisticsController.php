@@ -7,6 +7,7 @@ use App\db_credit;
 use App\db_summary;
 use App\db_supervisor_has_agent;
 use App\db_wallet;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,9 +21,9 @@ class statisticsController extends Controller
      */
     public function index()
     {
-        $data = db_supervisor_has_agent::where('id_supervisor',Auth::id())
-            ->join('users','id_user_agent','=','users.id')
-            ->join('wallet','agent_has_supervisor.id_wallet','=','wallet.id')
+        $data = db_supervisor_has_agent::where('id_supervisor', Auth::id())
+            ->join('users', 'id_user_agent', '=', 'users.id')
+            ->join('wallet', 'agent_has_supervisor.id_wallet', '=', 'wallet.id')
             ->select(
                 'users.*',
                 'wallet.name as wallet_name'
@@ -33,7 +34,7 @@ class statisticsController extends Controller
             'today' => Carbon::now()->toDateString(),
 
         );
-        return view('supervisor_statistics.agents',$data);
+        return view('supervisor_statistics.agents', $data);
     }
 
     /**
@@ -54,7 +55,6 @@ class statisticsController extends Controller
      */
     public function store(Request $request)
     {
-
     }
 
     /**
@@ -63,30 +63,37 @@ class statisticsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,$id)
+
+    public function show(Request $request, $id)
     {
-        $data = db_supervisor_has_agent::where('id_user_agent',$id)->first();
-        $data = db_wallet::where('id',$data->id_wallet)->first();
+        $data = db_supervisor_has_agent::where('id_user_agent', $id)->first();
+        $data = db_wallet::where('id', $data->id_wallet)->first();
         $date_start = $request->date_start;
         $date_end = $request->date_end;
 
-        $summary = db_summary::where('id_agent',$id)
-            ->whereDate('created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
-            ->whereDate('created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
-            ->sum('amount');
 
-        $credit = db_credit::where('id_agent',$id)
-            ->whereDate('created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
-            ->whereDate('created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
-            ->sum('amount_neto');
+        $credit = $this->range("App\db_credit", 'id_agent', $id, $date_start, $date_end, 'amount_neto');
+        $bills = $this->range("App\db_bills", 'id_agent', $id, $date_start, $date_end, 'amount');
+        $summary = $this->range("App\db_credit", 'id_agent', $id, $date_start, $date_end, 'amount');
 
-        $bills = db_bills::where('id_agent',$id)
-            ->whereDate('created_at','>=',Carbon::createFromFormat('d/m/Y',$date_start)->toDateString())
-            ->whereDate('created_at','<=',Carbon::createFromFormat('d/m/Y',$date_end)->toDateString())
-            ->sum('amount');
+        // $summary = db_summary::where('id_agent', $id)
+        //     ->whereDate('created_at', '>=', Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())
+        //     ->whereDate('created_at', '<=', Carbon::createFromFormat('d/m/Y', $date_end)->toDateString())
+        //     ->sum('amount');
 
-        $days = Carbon::createFromFormat('d/m/Y',$date_start)->subDay();
-        $days= $days->diffInDays(Carbon::createFromFormat('d/m/Y',$date_end));
+        // $credit = db_credit::where('id_agent', $id)
+        //     ->whereDate('created_at', '>=', Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())
+        //     ->whereDate('created_at', '<=', Carbon::createFromFormat('d/m/Y', $date_end)->toDateString())
+        //     ->sum('amount_neto');
+
+
+        // $bills = db_bills::where('id_agent', $id)
+        //     ->whereDate('created_at', '>=', Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())
+        //     ->whereDate('created_at', '<=', Carbon::createFromFormat('d/m/Y', $date_end)->toDateString())
+        //     ->sum('amount');
+
+        $days = Carbon::createFromFormat('d/m/Y', $date_start)->subDay();
+        $days = $days->diffInDays(Carbon::createFromFormat('d/m/Y', $date_end));
 
         $data = array(
             'summary' => $summary,
@@ -94,10 +101,10 @@ class statisticsController extends Controller
             'bills' => $bills,
             'days' => $days,
             'wallet' => $data,
-            'range' => 'Desde '.$date_start.' hasta '.$date_end
+            'range' => 'Desde ' . $date_start . ' hasta ' . $date_end
         );
 
-        return view('supervisor_statistics.show',$data);
+        return view('supervisor_statistics.show', $data);
     }
 
     /**
@@ -109,6 +116,7 @@ class statisticsController extends Controller
     public function edit($id)
     {
         //
+
     }
 
     /**
@@ -132,5 +140,61 @@ class statisticsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function status($id)
+    {
+        return view('supervisor_statistics.status',  ["id" => $id]);
+    }
+
+    public function showStatus(Request $request, $id)
+    {
+
+        $date_start = $request->date_start;
+        $date_end = $request->date_end;
+
+        $sumNet = 0;
+        $creditSum = $this->range("App\db_credit", 'id_agent', $id, $date_start, $date_end, 'amount_neto');
+        $bills = $this->range("App\db_bills", 'id_agent', $id, $date_start, $date_end, 'amount');
+        //$summary = $this->range("App\db_credit", 'id_agent', $id, $date_start, $date_end, 'amount_neto');
+
+        $credit = db_credit::where('id_agent', $id)
+             ->whereDate('created_at', '>=', Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())
+             ->whereDate('created_at', '<=', Carbon::createFromFormat('d/m/Y', $date_end)->toDateString())
+             ->get();
+
+        $user = User::where('id', $id)->first();
+
+        if ($creditSum > 0) {
+            foreach ($credit as $data) {
+                $sum = $data->amount_neto * $data->utility + $data->amount_neto;
+                $sumNet = $sumNet + $sum;
+            }
+            $data->setAttribute('netas', $sumNet);
+        }
+
+
+        $data = array(
+            'user' => $user,
+            'nets' => $sumNet, //capital + interés
+            'loan' => $creditSum, //prestado
+            'bills' => $bills, //gastos
+            'id' => $id,
+            'ds' =>  $date_start,
+            'de' => $date_end 
+        );
+
+        return view('supervisor_statistics.showStatus', $data);
+    }
+
+
+    public function range($table, $pKey, $id, $date_start, $date_end, $field)
+    {
+        $result = $table::where($pKey, $id)
+            ->whereDate('created_at', '>=', Carbon::createFromFormat('d/m/Y', $date_start)->toDateString())
+            ->whereDate('created_at', '<=', Carbon::createFromFormat('d/m/Y', $date_end)->toDateString())
+            ->sum($field);
+
+        return $result;
     }
 }

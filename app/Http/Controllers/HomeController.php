@@ -21,7 +21,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -32,8 +31,10 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $data_summary = db_summary::whereDate('summary.created_at',
-            Carbon::now()->toDateString())
+        $data_summary = db_summary::whereDate(
+            'summary.created_at',
+            Carbon::now()->toDateString()
+        )
             ->where('credit.id_agent', Auth::id())
             ->join('credit', 'summary.id_credit', '=', 'credit.id')
             ->join('users', 'credit.id_user', '=', 'users.id')
@@ -54,11 +55,11 @@ class HomeController extends Controller
         $close_day = db_close_day::whereDate('created_at', Carbon::now()->toDateString())
             ->where('id_agent', Auth::id())
             ->first();
-        
+
         $open_day = openDay::whereDate('created_at', Carbon::now()->toDateString())
             ->where('id_agent', Auth::id())
             ->where('opened_closed', 'closed')
-        ->first();
+            ->first();
 
         $base = db_supervisor_has_agent::where('id_user_agent', Auth::id())->first()->base ?? 0;
         $base_credit = db_credit::whereDate('created_at', Carbon::now()->toDateString())
@@ -90,6 +91,12 @@ class HomeController extends Controller
             'close_day' => $close_day
         ];
 
-        return view('home',$data);
+        return view('home', $data);
+    }
+
+
+    public function show()
+    {
+        return view('errors.messageErrors', ['message' => 'Para cambio o recuperación de contraseña comunicarse con su supervisor o en su defecto con soporte.']);
     }
 }

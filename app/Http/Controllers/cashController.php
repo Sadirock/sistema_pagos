@@ -19,9 +19,24 @@ class cashController extends Controller
      */
     public function index()
     {
+
+
+
+        $sql = DB::select('SELECT *,  (
+            SELECT  created_at AS closed
+            FROM close_day
+            WHERE (id_agent = id_user_agent) AND id_agent 
+            IN (SELECT id_agent
+                FROM close_day
+                GROUP BY id_agent ) ORDER BY closed desc LIMIT 1) AS closed
+            FROM agent_has_supervisor  as ahs 
+            INNER JOIN wallet ON ahs.id_wallet = wallet.id
+            WHERE ahs.id_supervisor = '. Auth::id());
+
         $data2 = db_supervisor_has_agent::where('id_supervisor',Auth::id())
-            ->join('wallet','id_wallet','=','wallet.id')
+            ->join('wallet','id_wallet','=','wallet.id')            
             ->get();
+
         $sum = db_supervisor_has_agent::where('id_supervisor',Auth::id())
             ->join('wallet','id_wallet','=','wallet.id')
             ->sum('agent_has_supervisor.base');
@@ -34,12 +49,15 @@ class cashController extends Controller
             ->select('*', 'cd.created_at as created')
             ->orderBy('cd.id','desc')            
             ->get();
+
+           // dd($report);
        
         $data = array(
-            'clients' => $data2,
+            'clients' => $sql,
             'report' => $report,
             'sum' => $sum
         );
+      // dd($data);
         return view('supervisor_cash.index',$data);
     }
 

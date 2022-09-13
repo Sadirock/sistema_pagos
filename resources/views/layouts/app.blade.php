@@ -6,8 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="Leifer Mendez, github, sistema prestamos, https://github.com/leifermendez" />
-    <meta name="author" content="https://github.com/leifermendez" />
+        
     <link rel="shortcut icon" sizes="196x196" href="../assets/images/logo.png">
     <title>Sistema de reporte</title>
 
@@ -43,9 +42,9 @@
 <body class="theme-primary menubar-light pace-done menubar-top">
     <!--============= start main area -->
     @include('layout.navbar')
-    @include('layout.navbarsearch')
+    {{-- @include('layout.navbarsearch') --}}
     @yield('content')
-    @include('layout.sidepanel')
+    {{-- @include('layout.sidepanel') --}}
 </body>
 
 @include('layout.script')

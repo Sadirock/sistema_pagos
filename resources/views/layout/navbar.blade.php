@@ -13,17 +13,19 @@
 
 <nav id="app-navbar" class="  navbar-inverse navbar-fixed-top primary in">
 
-    <!-- navbar header -->
-    <div class="navbar-header">
+    @if(Auth::check())
+        <!-- navbar header -->
+        <div class="navbar-header">
 
-        <a href="{{url('logout')}}" class="navbar-toggle navbar-toggle-left collapsed p-3">
-            <i class="fa fa-2x fa-sign-out"></i>
-        </a>
+            <a href="{{url('logout')}}" class="navbar-toggle navbar-toggle-left collapsed p-3">
+                <i class="fa fa-2x fa-sign-out"></i>
+            </a>
 
-        <a href="{{url('/')}}" class="navbar-brand text-white">
-            {{Auth::user()->name}}
-        </a>
-    </div><!-- .navbar-header -->
+            <a href="{{url('/')}}" class="navbar-brand text-white">
+                {{Auth::user()->name}}
+            </a>
+        </div><!-- .navbar-header -->
+    @endif
 
     <div class="navbar-container container-fluid">
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -46,7 +48,7 @@
                 </li>
             </ul>
 
-        </div><!-- navbar-container -->
+    </div><!-- navbar-container -->
 </nav>
 
 <div class="section-session">

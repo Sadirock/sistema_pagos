@@ -34,15 +34,13 @@
                                             <option value="0.50">50%</option>
                                         </select>
                                     </div>
+                                    
+
                                     <div class="form-group">
                                         <label for="payment_number">Cuotas:</label>
-                                        <select name="payment_number" class="form-control" id="payment_number">
-                                            @foreach($payment as $p)
-                                                <option value="{{$p->name}}">{{$p->name}}</option>
-                                            @endforeach
-
-                                        </select>
+                                        <input type="number" step="any" min="1" name="payment_number" class="form-control amount-input" id="payment_number" required>
                                     </div>
+
                                     <div class="form-group text-center total-box hidden">
                                         <h4>Total + Utilidad</h4>
                                         <h2 id="total_show"></h2>

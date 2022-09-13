@@ -21,6 +21,8 @@ Route::get('/cron', 'closeController@close_automatic');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/passwordReset', 'HomeController@show');
+
 Route::resource('client', 'userController')->middleware('auth');
 Route::resource('payment', 'paymentController')->middleware('auth');
 Route::resource('summary', 'summaryController')->middleware('auth');
@@ -36,6 +38,8 @@ Route::prefix('supervisor')->group(function () {
     Route::resource('client', 'clientController');
     Route::resource('tracker', 'trackerController');
     Route::resource('review', 'reviewController');
+    Route::get('statistics/{id}/status', 'statisticsController@status')->name('statistStatus');
+    Route::get('statistics/{id}/sst', 'statisticsController@showStatus')->name('showStatus');
     Route::resource('statistics', 'statisticsController');
     Route::resource('cash', 'cashController');
     Route::resource('bill', 'billsupervisorController');

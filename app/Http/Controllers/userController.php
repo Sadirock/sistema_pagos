@@ -213,7 +213,7 @@ class userController extends Controller
      *
      * @param int $id
      * @return \Illuminate\Http\Response
-     */
+     * Boton datos*/
     public function show($id)
     {
         $data = array(

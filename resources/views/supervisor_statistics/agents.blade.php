@@ -28,6 +28,7 @@
                                         <td><span class="value">{{$client->address}}</span></td>
                                         <td>
                                             <a href="{{url('supervisor/statistics')}}/create?id_agent={{$client->id}}" class="btn btn-warning btn-xs">Ver</a>
+                                            <a href="{{url('supervisor/statistics')}}/{{$client->id}}/status" class="btn btn-info btn-xs">Estado</a>
                                         </td>
                                     </tr>
                                 @endforeach

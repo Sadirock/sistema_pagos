@@ -642,7 +642,7 @@ function initMap({ lat, lng }) {
         var utility = parseFloat($('#utility').val());
         var total = parseFloat(amount * utility) + parseFloat(amount);
         var quote = parseFloat(total) / parseFloat($('#payment_number').val())
-
+        
         $('.total-box #total_show').html(total.toFixed(2));
         $('.total-box #quote').html(quote.toFixed(2));
         if (isNaN(total)) {
@@ -666,10 +666,10 @@ function initMap({ lat, lng }) {
     });
     $('body .datepicker-trigger').prop("readonly", true);
 
-    $('body .form-groupp .triggerSelect').css({
-        'pointer-events': 'none',
-        'touch-action': 'none'
-    });
+    // $('body .form-groupp .triggerSelect').css({
+    //     'pointer-events': 'none',
+    //     'touch-action': 'none'
+    // });
     //Order by Default
     $(document).ready(function () {
         $('#CC2').DataTable({

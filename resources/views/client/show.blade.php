@@ -17,7 +17,8 @@
                                     {{ csrf_field() }}
                                     <div class="form-group">
                                         <label for="nit_number">Nº Identificacion:</label>
-                                        <input type="text" name="nit_number" readonly value="{{isset($user) ? $user->nit : ''}}" class="form-control" id="nit_number" required>
+                                        <input type="text" name="nit_number" readonly value="{{isset($user) ? $user->nit : ''}}"
+                                               class="form-control" id="nit_number" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Nombres:</label>

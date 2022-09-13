@@ -45,18 +45,19 @@
 
                                         </td>
                                         <td>
-                                            <form action="{{url('client/create')}}?id={{$client->id}}" method="get">
-                                                <button class="btn btn-success btn-xs">Venta</button>
-                                            </form> 
+                                            <a href="{{url('client/create')}}?id={{$client->id}}" 
+                                                class="btn btn-success btn-xs">Venta
+                                            </a> 
                                             <form action="{{url('client')}}/{{$client->id}}" method="get">
                                                 <button class="btn btn-info btn-xs">Datos</button>
                                             </form> 
-
+                                            {{-- <form action="{{route('client.create', ['id' => $client->id]);}}" method="get">
+                                                <button class="btn btn-success btn-xs">Venta</button>
+                                            </form>  --}}
                                             
                                             @if(isset($client->lat) && isset($client->lng))
                                                 <a href="http://www.google.com/maps/place/{{$client->lat}},{{$client->lng}}" target="_blank" class="btn btn-info btn-xs">Ver Mapa</a>
                                             @endif
-
                                         </td>
                                     </tr>
                                 @endforeach

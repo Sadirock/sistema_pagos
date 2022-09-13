@@ -20,7 +20,7 @@
                                 @foreach($clients as $client)
                                     <tr>
                                         <td>{{$client->name}}</td>
-                                        <td>{{$client->created_at}}</td>
+                                        <td>{{$client->closed}}</td>
                                         <td>{{$client->base}}</td>
                                     </tr>
                                 @endforeach
